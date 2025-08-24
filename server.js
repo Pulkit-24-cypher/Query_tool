@@ -8,14 +8,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3001;
+const PORT = 5173;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Database connection - you'll need to update this path
-const DB_PATH = path.join(__dirname, 'src', 'Investment_Incetive.db');
+const DB_PATH = path.join('/Users/pulkitsharan/Query_tool/Investment_Incetive.db', 'src', 'Investment_Incetive.db');
 
 // Initialize database connection
 let db;
