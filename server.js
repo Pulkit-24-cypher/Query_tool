@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // Database connection - you'll need to update this path
-const DB_PATH = path.join('/Users/pulkitsharan/Query_tool/Investment_Incetive.db', 'src', 'Investment_Incetive.db');
+const DB_PATH = path.join('/Users/pulkitsharan/Query_tool/', 'src', 'Investment_Incetive.db');
 
 // Initialize database connection
 let db;
