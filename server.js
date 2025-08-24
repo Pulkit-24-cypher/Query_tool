@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import Database from 'better-sqlite3';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -17,16 +18,23 @@ app.use(express.json());
 // Database connection - you'll need to update this path
 const DB_PATH = path.join(__dirname, 'Investment_Incetive.db');
 
+console.log('Looking for database at:', DB_PATH);
+console.log('Database exists:', fs.existsSync(DB_PATH));
+
 // Initialize database connection
 let db;
 try {
-  if (require('fs').existsSync(DB_PATH)) {
+  if (fs.existsSync(DB_PATH)) {
     db = new Database(DB_PATH);
-    console.log('Connected to SQLite database at:', DB_PATH);
-    console.log("Exists:", fs.existsSync(DB_PATH));
+    console.log('✅ Connected to SQLite database at:', DB_PATH);
   } else {
-    console.error('Database file not found at:', DB_PATH);
-    console.log('Please place your Investment_Incentive.db file in the project root directory');
+    console.error('❌ Database file not found at:', DB_PATH);
+    console.log('📁 Current directory contents:');
+    const files = fs.readdirSync(__dirname);
+    files.forEach(file => {
+      console.log(`   ${file}`);
+    });
+    console.log('Please ensure Investment_Incetive.db is in the same directory as server.js');
   }
 } catch (error) {
   console.error('Database connection failed:', error);
@@ -37,7 +45,8 @@ app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     message: 'API is running',
-    database: db ? 'Connected' : 'Not connected'
+    database: db ? 'Connected' : 'Not connected',
+    dbPath: DB_PATH
   });
 });
 
@@ -47,7 +56,7 @@ app.post('/api/query', (req, res) => {
     if (!db) {
       return res.status(500).json({ 
         success: false, 
-        error: 'Database not connected. Please ensure Investment_Incentive.db is in the project root.' 
+        error: 'Database not connected. Please ensure Investment_Incetive.db is in the same directory as server.js' 
       });
     }
 
@@ -83,6 +92,13 @@ app.post('/api/query', (req, res) => {
 // Get table schema
 app.get('/api/tables', (req, res) => {
   try {
+    if (!db) {
+      return res.status(500).json({ 
+        success: false, 
+        error: 'Database not connected' 
+      });
+    }
+
     const stmt = db.prepare("SELECT name FROM sqlite_master WHERE type='table'");
     const tables = stmt.all();
     
@@ -101,6 +117,13 @@ app.get('/api/tables', (req, res) => {
 // Get table structure
 app.get('/api/tables/:tableName/schema', (req, res) => {
   try {
+    if (!db) {
+      return res.status(500).json({ 
+        success: false, 
+        error: 'Database not connected' 
+      });
+    }
+
     const { tableName } = req.params;
     const stmt = db.prepare(`PRAGMA table_info(${tableName})`);
     const schema = stmt.all();
@@ -121,6 +144,13 @@ app.get('/api/tables/:tableName/schema', (req, res) => {
 // Get sample data from a table
 app.get('/api/tables/:tableName/sample', (req, res) => {
   try {
+    if (!db) {
+      return res.status(500).json({ 
+        success: false, 
+        error: 'Database not connected' 
+      });
+    }
+
     const { tableName } = req.params;
     const limit = req.query.limit || 10;
     
