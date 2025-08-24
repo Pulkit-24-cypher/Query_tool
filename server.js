@@ -23,6 +23,7 @@ try {
   if (require('fs').existsSync(DB_PATH)) {
     db = new Database(DB_PATH);
     console.log('Connected to SQLite database at:', DB_PATH);
+    console.log("Exists:", fs.existsSync(DB_PATH));
   } else {
     console.error('Database file not found at:', DB_PATH);
     console.log('Please place your Investment_Incentive.db file in the project root directory');
