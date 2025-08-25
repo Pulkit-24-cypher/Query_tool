@@ -131,9 +131,9 @@ function App() {
         </header>
 
         {/* Main Content Area */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-8 overflow-hidden">
           {activeView === 'query' ? (
-            <div className="space-y-6">
+            <div className="space-y-6 max-w-full">
               {/* Query Section */}
               <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                 <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
@@ -149,7 +149,7 @@ function App() {
                     </button>
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-6 overflow-hidden">
                   <QueryEditor value={query} onChange={setQuery} />
                 </div>
               </div>
@@ -176,7 +176,7 @@ function App() {
                       </button>
                     )}
                   </div>
-                  <div className="p-6">
+                  <div className="p-6 overflow-hidden">
                     {loading ? (
                       <div className="flex items-center justify-center py-12">
                         <LoadingSpinner />
@@ -197,7 +197,9 @@ function App() {
               )}
             </div>
           ) : (
-            <ApiDocumentation />
+            <div className="max-w-full overflow-hidden">
+              <ApiDocumentation />
+            </div>
           )}
         </main>
       </div>

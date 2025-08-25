@@ -25,14 +25,14 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ data }) => {
 
   return (
     <div className="space-y-4">
-      <div className="overflow-x-auto bg-white rounded-lg border border-slate-200">
+      <div className="overflow-x-auto bg-white rounded-lg border border-slate-200 max-w-full">
         <table className="min-w-full divide-y divide-slate-200">
           <thead className="bg-slate-50">
             <tr>
               {columns.map((column) => (
                 <th
                   key={column}
-                  className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider whitespace-nowrap"
                 >
                   {column}
                 </th>
@@ -43,11 +43,13 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ data }) => {
             {currentData.map((row, index) => (
               <tr key={index} className="hover:bg-slate-50 transition-colors duration-150">
                 {columns.map((column) => (
-                  <td key={column} className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
+                  <td key={column} className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 max-w-xs">
                     {row[column] === null ? (
                       <span className="text-slate-400 italic">NULL</span>
                     ) : (
-                      String(row[column])
+                      <div className="truncate" title={String(row[column])}>
+                        {String(row[column])}
+                      </div>
                     )}
                   </td>
                 ))}
@@ -58,7 +60,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ data }) => {
       </div>
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="text-sm text-slate-700">
             Showing {startIndex + 1} to {Math.min(endIndex, data.length)} of {data.length} results
           </div>
