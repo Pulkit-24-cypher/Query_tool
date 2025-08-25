@@ -2,6 +2,12 @@ import React from 'react';
 import { Code, Database, Server, FileText } from 'lucide-react';
 
 const ApiDocumentation: React.FC = () => {
+  // Get the current host for dynamic API URL display
+  const getApiBaseUrl = () => {
+    // This will show the actual IP that should be used
+    return 'http://YOUR_LOCAL_IP:3001'; // Users need to replace with actual IP
+  };
+
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <div className="text-center">
@@ -12,6 +18,14 @@ const ApiDocumentation: React.FC = () => {
         <p className="text-slate-600">
           Use these endpoints to programmatically access your database
         </p>
+        <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <p className="text-sm text-yellow-800">
+            <strong>Base URL:</strong> <code>{getApiBaseUrl()}</code>
+          </p>
+          <p className="text-xs text-yellow-700 mt-1">
+            Replace YOUR_LOCAL_IP with the actual IP address of the machine running the backend server
+          </p>
+        </div>
       </div>
 
       <div className="grid gap-6">
@@ -173,8 +187,8 @@ const ApiDocumentation: React.FC = () => {
           <div>
             <h3 className="font-medium text-slate-900 mb-2">JavaScript/Node.js</h3>
             <pre className="bg-slate-900 text-white p-4 rounded-lg text-sm overflow-x-auto">
-{`// Execute a query
-const response = await fetch('http://localhost:3001/api/query', {
+{`// Execute a query (replace YOUR_LOCAL_IP with actual IP)
+const response = await fetch('http://YOUR_LOCAL_IP:3001/api/query', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -192,7 +206,7 @@ console.log(data);`}
           <div>
             <h3 className="font-medium text-slate-900 mb-2">cURL</h3>
             <pre className="bg-slate-900 text-white p-4 rounded-lg text-sm overflow-x-auto">
-{`curl -X POST http://localhost:3001/api/query \\
+{`curl -X POST http://YOUR_LOCAL_IP:3001/api/query \\
   -H "Content-Type: application/json" \\
   -d '{"query": "SELECT * FROM Incentive LIMIT 10"}'`}
             </pre>
@@ -203,7 +217,7 @@ console.log(data);`}
             <pre className="bg-slate-900 text-white p-4 rounded-lg text-sm overflow-x-auto">
 {`import requests
 
-response = requests.post('http://localhost:3001/api/query', 
+response = requests.post('http://YOUR_LOCAL_IP:3001/api/query', 
                         json={'query': 'SELECT * FROM Incentive LIMIT 10'})
 data = response.json()
 print(data)`}

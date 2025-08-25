@@ -45,6 +45,44 @@ The application will be available at:
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:3001
 
+## Network Access Setup
+
+To make the frontend accessible from other devices while keeping the backend local:
+
+### 1. Find Your Local IP Address
+**Windows:**
+```bash
+ipconfig
+```
+Look for "IPv4 Address" (usually like 192.168.1.100)
+
+**Mac/Linux:**
+```bash
+ifconfig
+# or
+ip addr show
+```
+
+### 2. Update Backend URL
+In `src/App.tsx`, update the `LOCAL_IP` variable:
+```javascript
+const LOCAL_IP = '192.168.1.100'; // Replace with your actual IP
+```
+
+### 3. Start Services
+```bash
+# Terminal 1 - Backend (local only)
+npm run server
+
+# Terminal 2 - Frontend (network accessible)
+npm run dev
+```
+
+### 4. Access Points
+- **Local access**: http://localhost:5173
+- **Network access**: http://YOUR_IP:5173 (from other devices)
+- **Backend**: Runs on your local machine, accessible to all frontend instances
+
 ## API Endpoints
 
 ### GET /api/health

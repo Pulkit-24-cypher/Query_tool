@@ -6,6 +6,15 @@ import Sidebar from './components/Sidebar';
 import LoadingSpinner from './components/LoadingSpinner';
 import ApiDocumentation from './components/ApiDocumentation';
 
+// Configuration for backend URL
+const getBackendUrl = () => {
+  // Replace 'localhost' with your actual local IP address (e.g., '192.168.1.100')
+  const LOCAL_IP = 'localhost'; // TODO: Change this to your actual IP
+  return `http://${LOCAL_IP}:3001`;
+};
+
+const BACKEND_URL = getBackendUrl();
+
 interface QueryResult {
   success: boolean;
   data?: any[];
@@ -32,7 +41,7 @@ function App() {
 
   const fetchTables = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/tables');
+      const response = await fetch(`${BACKEND_URL}/api/tables`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -46,7 +55,7 @@ function App() {
       console.error('Failed to fetch tables:', error);
       // Check if backend is running
       try {
-        const healthCheck = await fetch('http://localhost:3001/api/health');
+        const healthCheck = await fetch(`${BACKEND_URL}/api/health`);
         if (!healthCheck.ok) {
           console.error('Backend server is not responding properly');
         }
@@ -61,7 +70,7 @@ function App() {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3001/api/query', {
+      const response = await fetch(`${BACKEND_URL}/api/query`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
