@@ -102,7 +102,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex">
+    <div className="h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex overflow-hidden">
       {/* Sidebar */}
       <Sidebar 
         tables={tables}
@@ -112,9 +112,9 @@ function App() {
       />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Header */}
-        <header className="bg-white/80 backdrop-blur-sm border-b border-slate-200 px-8 py-6">
+        <header className="bg-white/80 backdrop-blur-sm border-b border-slate-200 px-8 py-6 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="p-2 bg-blue-600 text-white rounded-lg">
@@ -130,12 +130,12 @@ function App() {
           </div>
         </header>
 
-        {/* Main Content Area */}
-        <main className="flex-1 p-8 overflow-hidden max-w-full">
+        {/* Main Content Area - Flex container for proper sizing */}
+        <main className="flex-1 p-8 min-h-0 overflow-hidden">
           {activeView === 'query' ? (
-            <div className="space-y-6 max-w-full overflow-hidden">
-              {/* Query Section */}
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden max-w-full">
+            <div className="h-full flex flex-col space-y-6">
+              {/* Query Section - Fixed height */}
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200 flex-shrink-0">
                 <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
                   <h2 className="text-lg font-semibold text-slate-900">SQL Query Editor</h2>
                   <div className="flex items-center space-x-3">
@@ -149,15 +149,15 @@ function App() {
                     </button>
                   </div>
                 </div>
-                <div className="p-6 overflow-hidden max-w-full">
+                <div className="p-6">
                   <QueryEditor value={query} onChange={setQuery} />
                 </div>
               </div>
 
-              {/* Results Section */}
+              {/* Results Section - Takes remaining space */}
               {(loading || results) && (
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden max-w-full">
-                  <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-200 flex-1 flex flex-col min-h-0">
+                  <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50 flex-shrink-0">
                     <div className="flex items-center space-x-3">
                       <h2 className="text-lg font-semibold text-slate-900">Query Results</h2>
                       {results?.success && (
@@ -176,7 +176,7 @@ function App() {
                       </button>
                     )}
                   </div>
-                  <div className="p-6 overflow-hidden max-w-full">
+                  <div className="flex-1 p-6 min-h-0 overflow-hidden">
                     {loading ? (
                       <div className="flex items-center justify-center py-12">
                         <LoadingSpinner />
@@ -197,7 +197,7 @@ function App() {
               )}
             </div>
           ) : (
-            <div className="max-w-full overflow-hidden">
+            <div className="h-full overflow-auto">
               <ApiDocumentation />
             </div>
           )}
