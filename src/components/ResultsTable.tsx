@@ -43,7 +43,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ data }) => {
             {currentData.map((row, index) => (
               <tr key={index} className="hover:bg-slate-50 transition-colors duration-150">
                 {columns.map((column) => (
-                  <td key={column} className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 max-w-xs">
+                  <td key={column} className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 min-w-[120px] max-w-xs">
                     {row[column] === null ? (
                       <span className="text-slate-400 italic">NULL</span>
                     ) : (

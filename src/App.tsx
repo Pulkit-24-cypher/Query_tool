@@ -131,11 +131,11 @@ function App() {
         </header>
 
         {/* Main Content Area */}
-        <main className="flex-1 p-8 overflow-hidden">
+        <main className="flex-1 p-8 overflow-hidden max-w-full">
           {activeView === 'query' ? (
-            <div className="space-y-6 max-w-full">
+            <div className="space-y-6 max-w-full overflow-hidden">
               {/* Query Section */}
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden max-w-full">
                 <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
                   <h2 className="text-lg font-semibold text-slate-900">SQL Query Editor</h2>
                   <div className="flex items-center space-x-3">
@@ -149,14 +149,14 @@ function App() {
                     </button>
                   </div>
                 </div>
-                <div className="p-6 overflow-hidden">
+                <div className="p-6 overflow-hidden max-w-full">
                   <QueryEditor value={query} onChange={setQuery} />
                 </div>
               </div>
 
               {/* Results Section */}
               {(loading || results) && (
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden max-w-full">
                   <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
                     <div className="flex items-center space-x-3">
                       <h2 className="text-lg font-semibold text-slate-900">Query Results</h2>
@@ -176,7 +176,7 @@ function App() {
                       </button>
                     )}
                   </div>
-                  <div className="p-6 overflow-hidden">
+                  <div className="p-6 overflow-hidden max-w-full">
                     {loading ? (
                       <div className="flex items-center justify-center py-12">
                         <LoadingSpinner />

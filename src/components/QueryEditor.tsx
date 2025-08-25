@@ -7,11 +7,11 @@ interface QueryEditorProps {
 
 const QueryEditor: React.FC<QueryEditorProps> = ({ value, onChange }) => {
   return (
-    <div className="relative max-w-full">
+    <div className="relative max-w-full overflow-hidden">
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-32 p-4 bg-slate-900 text-white rounded-lg font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 overflow-x-auto"
+        className="w-full h-32 p-4 bg-slate-900 text-white rounded-lg font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 overflow-x-auto max-w-full"
         placeholder="Enter your SQL query here..."
         spellCheck={false}
       />
