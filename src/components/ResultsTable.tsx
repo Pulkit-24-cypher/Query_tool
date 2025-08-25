@@ -24,43 +24,50 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ data }) => {
   const currentData = data.slice(startIndex, endIndex);
 
   return (
-    <div className="space-y-4">
-      <div className="overflow-x-auto bg-white rounded-lg border border-slate-200 max-w-full">
-        <table className="min-w-full divide-y divide-slate-200">
-          <thead className="bg-slate-50">
-            <tr>
-              {columns.map((column) => (
-                <th
-                  key={column}
-                  className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider whitespace-nowrap"
-                >
-                  {column}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-slate-200">
-            {currentData.map((row, index) => (
-              <tr key={index} className="hover:bg-slate-50 transition-colors duration-150">
+    <div className="h-full flex flex-col space-y-4">
+      {/* Table Container - Takes most of the space and scrolls */}
+      <div className="flex-1 min-h-0 border border-slate-200 rounded-lg overflow-hidden bg-white">
+        <div className="h-full overflow-auto">
+          <table className="min-w-full divide-y divide-slate-200">
+            <thead className="bg-slate-50 sticky top-0 z-10">
+              <tr>
                 {columns.map((column) => (
-                  <td key={column} className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 min-w-[120px] max-w-xs">
-                    {row[column] === null ? (
-                      <span className="text-slate-400 italic">NULL</span>
-                    ) : (
-                      <div className="truncate" title={String(row[column])}>
-                        {String(row[column])}
-                      </div>
-                    )}
-                  </td>
+                  <th
+                    key={column}
+                    className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider whitespace-nowrap border-r border-slate-200 last:border-r-0 min-w-[120px]"
+                  >
+                    {column}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="bg-white divide-y divide-slate-200">
+              {currentData.map((row, index) => (
+                <tr key={index} className="hover:bg-slate-50 transition-colors duration-150">
+                  {columns.map((column) => (
+                    <td 
+                      key={column} 
+                      className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 border-r border-slate-200 last:border-r-0 min-w-[120px] max-w-xs"
+                    >
+                      {row[column] === null ? (
+                        <span className="text-slate-400 italic">NULL</span>
+                      ) : (
+                        <div className="truncate" title={String(row[column])}>
+                          {String(row[column])}
+                        </div>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
+      {/* Pagination Controls - Fixed at bottom */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between flex-wrap gap-4">
+        <div className="flex items-center justify-between flex-wrap gap-4 flex-shrink-0 bg-white p-4 border border-slate-200 rounded-lg">
           <div className="text-sm text-slate-700">
             Showing {startIndex + 1} to {Math.min(endIndex, data.length)} of {data.length} results
           </div>
