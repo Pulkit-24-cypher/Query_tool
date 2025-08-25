@@ -6,13 +6,21 @@ interface QueryEditorProps {
 }
 
 const QueryEditor: React.FC<QueryEditorProps> = ({ value, onChange }) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.ctrlKey && e.key === 'Enter') {
+      e.preventDefault();
+      // The parent component will handle the query execution
+    }
+  };
+
   return (
-    <div className="relative max-w-full overflow-hidden">
+    <div className="relative">
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-32 p-4 bg-slate-900 text-white rounded-lg font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 overflow-x-auto max-w-full"
-        placeholder="Enter your SQL query here..."
+        onKeyDown={handleKeyDown}
+        className="w-full h-32 p-4 bg-slate-900 text-white rounded-lg font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        placeholder="Enter your SQL query here... (Ctrl+Enter to execute)"
         spellCheck={false}
       />
       <div className="absolute top-2 right-2">
