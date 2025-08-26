@@ -11,13 +11,21 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3001;
 
-// Middleware
+// In your server.js, update the CORS configuration:
+
 app.use(cors({
-  origin: '*', // Allow all origins for network access
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://querytool-production.up.railway.app',
+    'https://8b78cda08389.ngrok-free.app', // Add your ngrok URL
+    /\.ngrok-free\.app$/, // Allow any ngrok-free.app subdomain
+    /\.ngrok\.io$/, // Allow any ngrok.io subdomain (older ngrok URLs)
+  ],
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'ngrok-skip-browser-warning']
 }));
-app.use(express.json());
 
 // Database connection - you'll need to update this path
 const DB_PATH = path.join(__dirname, 'Investment_Incetive.db');
