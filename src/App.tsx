@@ -9,8 +9,7 @@ import ApiDocumentation from './components/ApiDocumentation';
 // Configuration for backend URL
 const getBackendUrl = () => {
   // Replace 'localhost' with your actual local IP address (e.g., '192.168.1.100')
-  const LOCAL_IP = 'localhost'; // TODO: Change this to your actual IP
-  return `http://${LOCAL_IP}:3001`;
+  return 'https://8b78cda08389.ngrok-free.app';
 };
 
 const BACKEND_URL = getBackendUrl();
