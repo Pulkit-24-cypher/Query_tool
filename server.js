@@ -27,9 +27,6 @@ app.use(cors({
 
 // Your routes here...
 
-app.listen(PORT, '0.0.0.0', () => { // ✅ Listen on all interfaces
-  console.log(`Server running on port ${PORT}`);
-});
 
 // Database connection - you'll need to update this path
 const DB_PATH = path.join(__dirname, 'Investment_Incetive.db');
@@ -187,6 +184,12 @@ app.get('/api/tables/:tableName/sample', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+// app.listen(PORT, () => {
+//   console.log(`Server running on http://localhost:${PORT}`);
+// });
+// Your routes here...
+
+app.listen(PORT, '0.0.0.0', () => { // ✅ Listen on all interfaces
+  console.log(`Server running on port ${PORT}`);
 });
+
