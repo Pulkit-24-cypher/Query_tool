@@ -16,13 +16,14 @@ import ApiDocumentation from './components/ApiDocumentation';
 
 
 const getBackendUrl = () => {
-  // Check if we're in production (Railway)
-  if (window.location.hostname.includes('railway.app')) {
-    return 'https://your-backend-railway-url.railway.app'; // Replace with actual Railway backend URL
-  }
-  // Local development
-  return 'https://8b78cda08389.ngrok-free.app';
+  // Use explicit API URL in dev if provided
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl) return envUrl;
+
+  // In production (served by Express), same-origin
+  return window.location.origin;
 };
+
 const BACKEND_URL = getBackendUrl();
 
 
