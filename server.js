@@ -89,7 +89,8 @@ app.get('/api/tables/:tableName/schema', (req, res) => {
   try {
     if (!db) return res.status(500).json({ success: false, error: 'Database not connected' });
     const { tableName } = req.params;
-    const schema = db.prepare(PRAGMA table_info(${tableName})).all();
+    const stmt = db.prepare(`PRAGMA table_info(${tableName})`);
+//                      ↑ Add backticks here            ↑
     res.json({ success: true, table: tableName, schema });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -101,7 +102,7 @@ app.get('/api/tables/:tableName/sample', (req, res) => {
     if (!db) return res.status(500).json({ success: false, error: 'Database not connected' });
     const { tableName } = req.params;
     const limit = Number(req.query.limit) || 10;
-    const results = db.prepare(SELECT * FROM ${tableName} LIMIT ?).all(limit);
+    const stmt = db.prepare(`SELECT * FROM ${tableName} LIMIT ?`);
     res.json({ success: true, table: tableName, data: results, rowCount: results.length });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
