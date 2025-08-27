@@ -9,23 +9,27 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3001;
-
-// In your server.js, update the CORS configuration:
+const PORT = process.env.PORT || 3001; // ✅ Let Railway set the port
 
 app.use(cors({
   origin: [
     'http://localhost:5173',
     'http://localhost:3000',
-    'https://querytool-production.up.railway.app',
-    'https://8b78cda08389.ngrok-free.app', // Add your ngrok URL
-    /\.ngrok-free\.app$/, // Allow any ngrok-free.app subdomain
-    /\.ngrok\.io$/, // Allow any ngrok.io subdomain (older ngrok URLs)
+    'https://querytool-production.up.railway.app', // Your frontend Railway URL
+    'https://8b78cda08389.ngrok-free.app', // Keep for local testing
+    /\.ngrok-free\.app$/,
+    /\.railway\.app$/ // ✅ Add this for Railway domains
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'ngrok-skip-browser-warning']
 }));
+
+// Your routes here...
+
+app.listen(PORT, '0.0.0.0', () => { // ✅ Listen on all interfaces
+  console.log(`Server running on port ${PORT}`);
+});
 
 // Database connection - you'll need to update this path
 const DB_PATH = path.join(__dirname, 'Investment_Incetive.db');
