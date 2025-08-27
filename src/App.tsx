@@ -7,12 +7,25 @@ import LoadingSpinner from './components/LoadingSpinner';
 import ApiDocumentation from './components/ApiDocumentation';
 
 // Configuration for backend URL
+// const getBackendUrl = () => {
+//   // Replace 'localhost' with your actual local IP address (e.g., '192.168.1.100')
+//   return 'https://8b78cda08389.ngrok-free.app';
+// };
+
+// const BACKEND_URL = getBackendUrl();
+
+
 const getBackendUrl = () => {
-  // Replace 'localhost' with your actual local IP address (e.g., '192.168.1.100')
+  // Check if we're in production (Railway)
+  if (window.location.hostname.includes('railway.app')) {
+    return 'https://your-backend-railway-url.railway.app'; // Replace with actual Railway backend URL
+  }
+  // Local development
   return 'https://8b78cda08389.ngrok-free.app';
 };
-
 const BACKEND_URL = getBackendUrl();
+
+
 
 interface QueryResult {
   success: boolean;
