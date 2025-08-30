@@ -6,7 +6,7 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
-const _dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -36,7 +36,7 @@ app.use(cors({
 // Database setup
 // ==============================
 // ✅ Make DB path configurable so you can mount a Railway Volume (e.g., /data)
-const DB_PATH = process.env.DB_PATH || path.join(_dirname, 'Investment_Incentive.db');
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'Investment_Incentive.db');
 console.log('Looking for database at:', DB_PATH);
 console.log('Database exists:', fs.existsSync(DB_PATH));
 
