@@ -90,7 +90,7 @@ app.get('/api/tables/:tableName/schema', (req, res) => {
     if (!db) return res.status(500).json({ success: false, error: 'Database not connected' });
     const { tableName } = req.params;
     const stmt = db.prepare(`PRAGMA table_info(${tableName})`);
-//                      ↑ Add backticks here            ↑
+    const schema = stmt.all();
     res.json({ success: true, table: tableName, schema });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
