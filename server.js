@@ -36,7 +36,7 @@ app.use(cors({
 // Database setup
 // ==============================
 // ✅ Make DB path configurable so you can mount a Railway Volume (e.g., /data)
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'Investment_Incentive.db');
+const DB_PATH = process.env.DB_PATH || path.join(_dirname, 'Investment_Incetive.db');
 console.log('Looking for database at:', DB_PATH);
 console.log('Database exists:', fs.existsSync(DB_PATH));
 
