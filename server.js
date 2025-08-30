@@ -36,7 +36,7 @@ app.use(cors({
 // Database setup
 // ==============================
 // ✅ Make DB path configurable so you can mount a Railway Volume (e.g., /data)
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'Investment_Incetive.db');
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'Investment_Incentive.db');
 console.log('Looking for database at:', DB_PATH);
 console.log('Database exists:', fs.existsSync(DB_PATH));
 
@@ -122,5 +122,5 @@ if (fs.existsSync(distPath)) {
 
 // ✅ Listen on all interfaces (Railway)
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(Server running on port ${PORT});
+  console.log(`Server running on port ${PORT}`);
 });
