@@ -20,6 +20,11 @@ const getBackendUrl = () => {
   const envUrl = import.meta.env.VITE_API_URL;
   if (envUrl) return envUrl;
 
+  // In development, point to Node.js backend server
+  if (import.meta.env.DEV) {
+    return 'http://localhost:3001';
+  }
+
   // In production (served by Express), same-origin
   return window.location.origin;
 };
